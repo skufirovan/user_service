@@ -16,6 +16,7 @@ model User {
   password  String
   role      UserRole
   isActive  Boolean  @default(true) @map("is_active")
+  tokens    Token[]
 
   @@map("user")
 }
@@ -23,4 +24,17 @@ model User {
 enum UserRole {
   admin
   user
+}
+
+model Token {
+  id        BigInt   @id @default(autoincrement())
+  refresh   String   @unique
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    BigInt   @map("user_id")
+  userAgent String?  @map("user_agent")
+  createdAt DateTime @default(now()) @map("created_at")
+  expiresAt DateTime @map("expires_at")
+
+  @@unique([userId, userAgent], name: "userId_userAgent")
+  @@map("token")
 }
