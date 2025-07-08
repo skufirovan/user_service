@@ -27,6 +27,10 @@ export const authMiddleware = (
       return next(ApiError.UnauthorizedError());
     }
 
+    if (!userData.isActive) {
+      return next(ApiError.UnauthorizedError());
+    }
+
     req.user = userData;
     next();
   } catch (e) {
