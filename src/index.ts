@@ -1,8 +1,8 @@
+import { errorMiddleware } from "./middlewares/error-middleware";
+import { router } from "./router";
 const express = require("express");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
-const router = require("./router/index");
-const errorMiddleware = require("./middlewares/error-middleware");
 
 const PORT = 5000;
 const app = express();

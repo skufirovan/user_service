@@ -6,7 +6,7 @@ import { UserRole } from "../prisma/generated";
 config();
 
 export type JwtPayload = {
-  id: bigint;
+  id: string;
   fullName: string;
   birthDate: Date;
   email: string;
@@ -40,9 +40,12 @@ class TokenService {
     }
   }
 
-  validateRefreshToken(token: string) {
+  validateRefreshToken(token: string): JwtPayload | null {
     try {
-      const userData = jwt.verify(token, process.env.JWT_REFRESH_SECRET!);
+      const userData = jwt.verify(
+        token,
+        process.env.JWT_REFRESH_SECRET!
+      ) as JwtPayload;
       return userData;
     } catch (e) {
       return null;

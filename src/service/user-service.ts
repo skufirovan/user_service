@@ -36,7 +36,7 @@ class UserService {
 
     const userDto = new UserDto(user);
     const tokens = tokenService.generateTokens({ ...userDto });
-    await tokenService.saveToken(userDto.id, userAgent, tokens.refresh);
+    await tokenService.saveToken(BigInt(userDto.id), userAgent, tokens.refresh);
 
     return { ...tokens, user: userDto };
   }
@@ -56,7 +56,7 @@ class UserService {
 
     const userDto = new UserDto(user);
     const tokens = tokenService.generateTokens({ ...userDto });
-    await tokenService.saveToken(userDto.id, userAgent, tokens.refresh);
+    await tokenService.saveToken(BigInt(userDto.id), userAgent, tokens.refresh);
 
     return { ...tokens, user: userDto };
   }

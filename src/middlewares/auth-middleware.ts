@@ -6,11 +6,11 @@ interface AuthedRequest extends Request {
   user?: JwtPayload;
 }
 
-module.exports = function (
+export const authMiddleware = (
   req: AuthedRequest,
   res: Response,
   next: NextFunction
-) {
+) => {
   try {
     const authorizationHeader = req.headers.authorization;
     if (!authorizationHeader) {
