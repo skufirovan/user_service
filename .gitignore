@@ -1,5 +1,5 @@
 node_modules
-prisma/generated
+src/prisma/generated
 .vscode
 .env
 

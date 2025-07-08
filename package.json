@@ -4,7 +4,7 @@
   "main": "src/index.ts",
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
-    "prisma:mig": "npx prisma migrate dev"
+    "prisma:mig": "npx prisma migrate dev --schema src/prisma/schema.prisma"
   },
   "dependencies": {
     "@prisma/client": "^6.11.1",
