@@ -5,7 +5,7 @@ import { UserRole } from "../prisma/generated";
 
 config();
 
-type JwtPayload = {
+export type JwtPayload = {
   id: bigint;
   fullName: string;
   birthDate: Date;
@@ -28,9 +28,12 @@ class TokenService {
     };
   }
 
-  validateAccessToken(token: string) {
+  validateAccessToken(token: string): JwtPayload | null {
     try {
-      const userData = jwt.verify(token, process.env.JWT_ACCESS_SECRET!);
+      const userData = jwt.verify(
+        token,
+        process.env.JWT_ACCESS_SECRET!
+      ) as JwtPayload;
       return userData;
     } catch (e) {
       return null;
@@ -52,7 +55,7 @@ class TokenService {
     });
 
     const now = new Date();
-    const expiresAt = new Date(now.getTime() + 30 * 60 * 1000);
+    const expiresAt = new Date(now.getTime() + 30 * 24 * 60 * 60 * 1000);
 
     if (tokenData) {
       const updatedTokenData = await prisma.token.update({
