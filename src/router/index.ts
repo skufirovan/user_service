@@ -1,6 +1,5 @@
-import userController from "../controller/user-controller";
-import { authMiddleware } from "../middlewares/auth-middleware";
-import { validateMiddleware } from "../middlewares/validate-middleware";
+import userController from "../controllers/user-controller";
+import { authMiddleware, validateMiddleware } from "../middlewares";
 import { loginSchema, registrationSchema } from "../validation/user-schemas";
 
 const Router = require("express").Router;

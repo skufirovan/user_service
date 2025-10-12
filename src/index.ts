@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-import { errorMiddleware } from "./middlewares/error-middleware";
+import { errorMiddleware } from "./middlewares";
 import { router } from "./router";
 
 const PORT = process.env.PORT;
