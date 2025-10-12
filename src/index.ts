@@ -1,13 +1,13 @@
+import express from "express";
+import cors from "cors";
+import cookieParser from "cookie-parser";
 import { errorMiddleware } from "./middlewares/error-middleware";
 import { router } from "./router";
-const express = require("express");
-const cors = require("cors");
-const cookieParser = require("cookie-parser");
 
-const PORT = 5000;
+const PORT = process.env.PORT;
 const app = express();
 
-app.use(express.json());
+app.use(express.json({ limit: "1mb" }));
 app.use(cookieParser());
 app.use(
   cors({
