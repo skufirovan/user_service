@@ -47,8 +47,8 @@ class UserController {
 
   async getUserById(req: Request, res: Response, next: NextFunction) {
     try {
-      const requesterId = BigInt((req as any).user.id);
-      const requesterRole = (req as any).user.role as UserRole;
+      const requesterId = BigInt(req.user!.id);
+      const requesterRole = req.user!.role;
       const targetUserId = BigInt(req.params.id);
 
       const user = await userService.getUserById(
@@ -65,7 +65,7 @@ class UserController {
 
   async getAllUsers(req: Request, res: Response, next: NextFunction) {
     try {
-      const requesterRole = (req as any).user.role as UserRole;
+      const requesterRole = req.user!.role;
       const users = await userService.getAllUsers(requesterRole);
       return res.json(users);
     } catch (e) {
@@ -75,8 +75,8 @@ class UserController {
 
   async blockUser(req: Request, res: Response, next: NextFunction) {
     try {
-      const requesterId = BigInt((req as any).user.id);
-      const requesterRole = (req as any).user.role as UserRole;
+      const requesterId = BigInt(req.user!.id);
+      const requesterRole = req.user!.role;
       const targetUserId = BigInt(req.params.id);
 
       const user = await userService.blockUser(

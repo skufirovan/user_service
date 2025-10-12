@@ -1,13 +1,9 @@
 import { Request, Response, NextFunction } from "express";
 import ApiError from "../exeptions/api-error";
-import tokenService, { JwtPayload } from "../service/token-service";
-
-interface AuthedRequest extends Request {
-  user?: JwtPayload;
-}
+import tokenService from "../service/token-service";
 
 export const authMiddleware = (
-  req: AuthedRequest,
+  req: Request,
   res: Response,
   next: NextFunction
 ) => {
