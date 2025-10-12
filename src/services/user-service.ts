@@ -2,6 +2,7 @@ import * as bcrypt from "bcrypt";
 import ApiError from "../exeptions/api-error";
 import { type UserRole, prisma } from "../prisma";
 import UserDto from "../dtos/user-dto";
+import type { UpdateProfileInput } from "../validation/user-schemas";
 import tokenService from "./token-service";
 
 class UserService {
@@ -108,6 +109,18 @@ class UserService {
     });
 
     return new UserDto(user);
+  }
+
+  async updateProfile(userId: bigint, data: UpdateProfileInput) {
+    const user = await prisma.user.findUnique({ where: { id: userId } });
+
+    if (!user) {
+      throw ApiError.BadRequest("Пользователь не найден");
+    }
+
+    const updated = await prisma.user.update({ where: { id: userId }, data });
+
+    return new UserDto(updated);
   }
 }
 

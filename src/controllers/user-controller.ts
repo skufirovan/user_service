@@ -90,6 +90,19 @@ class UserController {
       next(e);
     }
   }
+
+  async updateProfile(req: Request, res: Response, next: NextFunction) {
+    try {
+      const userId = BigInt(req.user!.id);
+      const data = req.body;
+
+      const user = await userService.updateProfile(userId, data);
+
+      return res.json(user);
+    } catch (e) {
+      next(e);
+    }
+  }
 }
 
 export default new UserController();

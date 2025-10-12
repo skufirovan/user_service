@@ -14,5 +14,12 @@ export const loginSchema = z.object({
   password: z.string().min(8),
 });
 
+export const updateProfileSchema = z.object({
+  fullName: z.string().min(3).max(50).optional(),
+  birthDate: z.coerce.date().optional(),
+  email: z.email().optional(),
+});
+
 export type RegistrationInput = z.infer<typeof registrationSchema>;
 export type LoginInput = z.infer<typeof loginSchema>;
+export type UpdateProfileInput = z.infer<typeof updateProfileSchema>;

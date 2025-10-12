@@ -1,6 +1,10 @@
 import userController from "../controllers/user-controller";
 import { authMiddleware, validateMiddleware } from "../middlewares";
-import { loginSchema, registrationSchema } from "../validation/user-schemas";
+import {
+  loginSchema,
+  registrationSchema,
+  updateProfileSchema,
+} from "../validation/user-schemas";
 
 const Router = require("express").Router;
 
@@ -12,6 +16,12 @@ router.post(
   userController.registration
 );
 router.post("/login", validateMiddleware(loginSchema), userController.login);
-router.get("/user/:id", authMiddleware, userController.getUserById);
-router.get("/user", authMiddleware, userController.getAllUsers);
-router.patch("/user/block/:id", authMiddleware, userController.blockUser);
+router.patch(
+  "/profile",
+  [authMiddleware, validateMiddleware(updateProfileSchema)],
+  userController.updateProfile
+);
+
+router.get("/users", authMiddleware, userController.getAllUsers);
+router.get("/users/:id", authMiddleware, userController.getUserById);
+router.patch("/users/:id/block", authMiddleware, userController.blockUser);
